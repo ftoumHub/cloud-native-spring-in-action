@@ -7,23 +7,32 @@ by [Thomas Vitale](https://www.thomasvitale.com).
 
 ## Useful Commands
 
-| Gradle Command	         | Description                                   |
-|:---------------------------|:----------------------------------------------|
-| `./gradlew bootRun`        | Run the application.                          |
-| `./gradlew build`          | Build the application.                        |
-| `./gradlew test`           | Run tests.                                    |
-| `./gradlew bootJar`        | Package the application as a JAR.             |
-| `./gradlew bootBuildImage` | Package the application as a container image. |
+| Gradle Command	               | Description                                   |
+|:------------------------------|:----------------------------------------------|
+| `mvn spring-boot:run`         | Run the application.                          |
+| `mvn test`                    | Run tests.                                    |
+| `mvn clean package`           | Package the application as a JAR.             |
+| `mvn spring-boot:build-image` | Package the application as a container image. |
 
 After building the application, you can also run it from the Java CLI:
 
 ```bash
-java -jar build/libs/catalog-service-0.0.1-SNAPSHOT.jar
+java -jar target/catalog-service-0.0.1-SNAPSHOT.jar
 ```
 
 ## Container tasks
 
 Run Catalog Service as a container
+
+Pour l'instant, la commande `mvn spring-boot:build-image` ne fonctionne pas, solution de contournement :
+
+Création d'un Dockerfile à la racine, puis :
+
+mvn clean package
+docker build -t catalog-service .
+docker run -p 8080:8080 catalog-service
+
+http://localhost:8080
 
 ```bash
 docker run --rm --name catalog-service -p 8080:8080 catalog-service:0.0.1-SNAPSHOT
